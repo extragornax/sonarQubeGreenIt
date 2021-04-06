@@ -49,6 +49,7 @@ public final class RulesList {
                 AvoidTreeListRule.class,
                 MyCustomSubscriptionRule.class,
                 SecurityAnnotationMandatoryRule.class,
+                IncrementCheck.class,
                 MyFirstCustomCheck.class
         ));
     }
