@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  web:
+    image: sonarqube:latest
+    ports:
+      - "9000:9000"
+    volumes:
+      - type: bind
+        source: ./target/java-custom-rules-example-1.0.0-SNAPSHOT.jar
+        target: /opt/sonarqube/extensions/plugins/java-custom-rules-example-1.0.0-SNAPSHOT.jar
+
