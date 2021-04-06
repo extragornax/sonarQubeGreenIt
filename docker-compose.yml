@@ -6,6 +6,6 @@ services:
       - "9000:9000"
     volumes:
       - type: bind
-        source: ./target/java-custom-rules-example-1.0.0-SNAPSHOT.jar
-        target: /opt/sonarqube/extensions/plugins/java-custom-rules-example-1.0.0-SNAPSHOT.jar
+        source: ./target/green-it-1.0.0-SNAPSHOT.jar
+        target: /opt/sonarqube/extensions/plugins/green-it-1.0.0-SNAPSHOT.jar
 
