@@ -28,7 +28,7 @@
 
     <modules>
         <module>java-plugin</module>
-
+        <module>css-plugin</module>
     </modules>
 
 

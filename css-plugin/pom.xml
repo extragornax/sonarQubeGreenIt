@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>fr.cnumr</groupId>
+        <artifactId>green-it</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>css-plugin</artifactId>
+    <packaging>sonar-plugin</packaging>
+
+
+    <name>CSS / SCSS / Less Custom Rules Plugin</name>
+    <description>Sample plugin that defines custom CSS / SCSS / Less rules</description>
+    <url>https://github.com/racodond/sonar-css-custom-rules-plugin</url>
+
+    <properties>
+        <sonar.pluginName>CSS / SCSS / Less Custom Rules</sonar.pluginName>
+        <sonar.pluginClass>org.sonar.css.MyCssCustomRulesPlugin</sonar.pluginClass>
+        <sonar.basePlugin>css</sonar.basePlugin>
+        <sonar.requirePlugins>css:4.13</sonar.requirePlugins>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.sonarsource.sonarqube</groupId>
+            <artifactId>sonar-plugin-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.sonarsource.java</groupId>
+            <artifactId>sonar-java-plugin</artifactId>
+            <type>sonar-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.sonar-plugins.css</groupId>
+            <artifactId>sonar-css-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.sonarsource.analyzer-commons</groupId>
+            <artifactId>sonar-analyzer-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.sonarsource.java</groupId>
+            <artifactId>java-frontend</artifactId>
+            <version>6.13.0.25138</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+                <artifactId>sonar-packaging-maven-plugin</artifactId>
+                <version>1.20.0.405</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <pluginKey>java-custom</pluginKey>
+                    <pluginName>Ecoconception Web / Les 115 bonnes pratiques</pluginName>
+                    <pluginClass>fr.cnumr.css.MyCssCustomRulesPlugin</pluginClass>
+                    <sonarLintSupported>true</sonarLintSupported>
+                    <sonarQubeMinVersion>${sonarqube.version}</sonarQubeMinVersion>
+                    <!-- FIXME after release of SQ 8.8 -->
+                    <requirePlugins>java:6.12.0.24852</requirePlugins>
+                    <!-- <requirePlugins>java:${sonarjava.version}</requirePlugins> -->
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
+                            <minimizeJar>true</minimizeJar>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <filters>
+                                <filter>
+                                    <artifact>cglib:cglib-nodep</artifact>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <configuration>
+                    <destFile>${sonar.jacoco.reportPath}</destFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
