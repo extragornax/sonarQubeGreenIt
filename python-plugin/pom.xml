@@ -1,76 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>fr.cnumr</groupId>
-    <artifactId>green-it</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-  </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>fr.cnumr</groupId>
+        <artifactId>green-it</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
 
-  <artifactId>python-plugin</artifactId>
-  <packaging>sonar-plugin</packaging>
+    <artifactId>python-plugin</artifactId>
+    <packaging>sonar-plugin</packaging>
 
-  <name>Python Custom Rules Plugin</name>
-  <description>Python Custom Rules</description>
+    <name>Version Python du plugin</name>
+    <description></description>
 
-  <properties>
-    <sonar.python.version>3.4.0.7980</sonar.python.version> <!-- minimum version is 2.0, Custom Rules API is not available for 1.x -->
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>org.sonarsource.sonarqube</groupId>
-      <artifactId>sonar-plugin-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.sonarsource.python</groupId>
-      <artifactId>sonar-python-plugin</artifactId>
-      <type>sonar-plugin</type>
-      <version>${sonar.python.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.sonarsource.python</groupId>
-      <artifactId>python-checks-testkit</artifactId>
-      <version>${sonar.python.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.sonarsource.sonarqube</groupId>
-      <artifactId>sonar-plugin-api-impl</artifactId>
-      <version>8.7.0.41497</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.sonarsource.sonarqube</groupId>
+            <artifactId>sonar-plugin-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.sonarsource.python</groupId>
+            <artifactId>sonar-python-plugin</artifactId>
+            <type>sonar-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>org.sonarsource.python</groupId>
+            <artifactId>python-checks-testkit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.sonarsource.sonarqube</groupId>
+            <artifactId>sonar-plugin-api-impl</artifactId>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
-        <artifactId>sonar-packaging-maven-plugin</artifactId>
-        <version>1.18.0.372</version>
-        <extensions>true</extensions>
-        <configuration>
-          <pluginClass>fr.cnumr.python.CustomPythonRulesPlugin</pluginClass>
-          <requirePlugins>python:${sonar.python.version}</requirePlugins>
-        </configuration>
-      </plugin>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+                <artifactId>sonar-packaging-maven-plugin</artifactId>
+                <version>${sonar-packaging.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <pluginClass>fr.cnumr.python.CustomPythonRulesPlugin</pluginClass>
+                    <requirePlugins>python:${sonar.python.version}</requirePlugins>
+                </configuration>
+            </plugin>
 
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

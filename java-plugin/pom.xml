@@ -12,56 +12,56 @@
     <artifactId>java-plugin</artifactId>
     <packaging>sonar-plugin</packaging>
 
-    <name>SonarQube Java :: Documentation :: Custom Rules Example</name>
-    <description>Java Custom Rules Example for SonarQube</description>
+    <name>Version Java du plugin</name>
+    <description></description>
 
-        <dependencies>
-            <!-- MAIN sources dependencies -->
-            <dependency>
-                <groupId>org.sonarsource.sonarqube</groupId>
-                <artifactId>sonar-plugin-api</artifactId>
-            </dependency>
+    <dependencies>
+        <!-- MAIN sources dependencies -->
+        <dependency>
+            <groupId>org.sonarsource.sonarqube</groupId>
+            <artifactId>sonar-plugin-api</artifactId>
+        </dependency>
 
-            <dependency>
-                <groupId>org.sonarsource.java</groupId>
-                <artifactId>sonar-java-plugin</artifactId>
-                <type>sonar-plugin</type>
-            </dependency>
+        <dependency>
+            <groupId>org.sonarsource.java</groupId>
+            <artifactId>sonar-java-plugin</artifactId>
+            <type>sonar-plugin</type>
+        </dependency>
 
-            <dependency>
-                <groupId>org.sonarsource.analyzer-commons</groupId>
-                <artifactId>sonar-analyzer-commons</artifactId>
-            </dependency>
+        <dependency>
+            <groupId>org.sonarsource.analyzer-commons</groupId>
+            <artifactId>sonar-analyzer-commons</artifactId>
+        </dependency>
 
 
-            <!-- TEST sources dependencies -->
-            <dependency>
-                <groupId>org.sonarsource.java</groupId>
-                <artifactId>java-checks-testkit</artifactId>
-            </dependency>
+        <!-- TEST sources dependencies -->
+        <dependency>
+            <groupId>org.sonarsource.java</groupId>
+            <artifactId>java-checks-testkit</artifactId>
+        </dependency>
 
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter</artifactId>
-            </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
 
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-migrationsupport</artifactId>
-            </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-migrationsupport</artifactId>
+        </dependency>
 
-            <dependency>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-core</artifactId>
-            </dependency>
-        </dependencies>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
                 <artifactId>sonar-packaging-maven-plugin</artifactId>
-                <version>1.20.0.405</version>
+                <version>${sonar-packaging.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <pluginKey>java-custom</pluginKey>
