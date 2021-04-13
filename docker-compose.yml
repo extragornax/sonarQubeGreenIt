@@ -12,7 +12,5 @@ services:
         source: ./php-plugin/target/php-plugin-1.0.0-SNAPSHOT.jar
         target: /opt/sonarqube/extensions/plugins/php-plugin-1.0.0-SNAPSHOT.jar
       - type: bind
-        source: ./php-plugin/target/python-plugin-1.0.0-SNAPSHOT.jar
+        source: ./python-plugin/target/python-plugin-1.0.0-SNAPSHOT.jar
         target: /opt/sonarqube/extensions/plugins/python-plugin-1.0.0-SNAPSHOT.jar
-
-

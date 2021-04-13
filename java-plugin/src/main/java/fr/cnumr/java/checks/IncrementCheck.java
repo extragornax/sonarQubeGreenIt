@@ -26,16 +26,10 @@ public class IncrementCheck extends IssuableSubscriptionVisitor {
     public List<Kind> nodesToVisit() {
         return Collections.singletonList(Kind.POSTFIX_INCREMENT);
     }
-// POSTFIX_INCREMENT
+
     @Override
     public void visitNode(Tree tree) {
         UnaryExpressionTree method = (UnaryExpressionTree) tree;
-        /*
-                if (returnType.is(firstParameterType.fullyQualifiedName())) {
-            reportIssue(method.simpleName(), "Never do that!");
-        }
-         */
-
         reportIssue(tree, "Never do that!");
     }
 }
