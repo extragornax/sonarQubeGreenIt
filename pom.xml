@@ -29,6 +29,7 @@
     <modules>
         <module>java-plugin</module>
         <module>php-plugin</module>
+        <module>python-plugin</module>
     </modules>
 
 
@@ -110,7 +111,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.10</version>
+                <version>4.12</version>
             </dependency>
 
         </dependencies>
