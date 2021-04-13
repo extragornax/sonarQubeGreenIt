@@ -6,6 +6,13 @@ services:
       - "9000:9000"
     volumes:
       - type: bind
-        source: ./target/green-it-1.0.0-SNAPSHOT.jar
-        target: /opt/sonarqube/extensions/plugins/green-it-1.0.0-SNAPSHOT.jar
+        source: ./java-plugin/target/java-plugin-1.0.0-SNAPSHOT.jar
+        target: /opt/sonarqube/extensions/plugins/java-plugin-1.0.0-SNAPSHOT.jar
+      - type: bind
+        source: ./php-plugin/target/php-plugin-1.0.0-SNAPSHOT.jar
+        target: /opt/sonarqube/extensions/plugins/php-plugin-1.0.0-SNAPSHOT.jar
+      - type: bind
+        source: ./php-plugin/target/python-plugin-1.0.0-SNAPSHOT.jar
+        target: /opt/sonarqube/extensions/plugins/python-plugin-1.0.0-SNAPSHOT.jar
+
 
