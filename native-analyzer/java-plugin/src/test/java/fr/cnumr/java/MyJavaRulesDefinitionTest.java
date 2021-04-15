@@ -39,8 +39,8 @@ class MyJavaRulesDefinitionTest {
     rulesDefinition.define(context);
     RulesDefinition.Repository repository = context.repository(MyJavaRulesDefinition.REPOSITORY_KEY);
 
-    assertThat(repository.name()).isEqualTo("MyCompany Custom Repository");
-    assertThat(repository.language()).isEqualTo("java");
+    assertThat(repository.name()).isEqualTo(MyJavaRulesDefinition.NAME);
+    assertThat(repository.language()).isEqualTo(MyJavaRulesDefinition.LANGUAGE);
     assertThat(repository.rules()).hasSize(RulesList.getChecks().size());
     assertThat(repository.rules().stream().filter(Rule::template)).isEmpty();
 
@@ -50,7 +50,7 @@ class MyJavaRulesDefinitionTest {
 
 
   private static void assertRuleProperties(Repository repository) {
-    Rule rule = repository.rule("67");
+    Rule rule = repository.rule("S67");
     assertThat(rule).isNotNull();
     assertThat(rule.name()).isEqualTo("Remplacer les $i++ par ++$i");
     assertThat(rule.debtRemediationFunction().type()).isEqualTo(Type.CONSTANT_ISSUE);

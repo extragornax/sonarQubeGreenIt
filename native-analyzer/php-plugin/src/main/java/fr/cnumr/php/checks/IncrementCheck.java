@@ -19,21 +19,16 @@
  */
 package fr.cnumr.php.checks;
 
-import com.google.common.collect.ImmutableSet;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.php.api.tree.Tree;
 import org.sonar.plugins.php.api.tree.Tree.Kind;
-import org.sonar.plugins.php.api.tree.declaration.NamespaceNameTree;
-import org.sonar.plugins.php.api.tree.expression.ExpressionTree;
-import org.sonar.plugins.php.api.tree.expression.FunctionCallTree;
 import org.sonar.plugins.php.api.tree.expression.UnaryExpressionTree;
 import org.sonar.plugins.php.api.visitors.PHPSubscriptionCheck;
 import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Example of implementation of a check by extending {@link PHPVisitorCheck}.

@@ -3,10 +3,6 @@ package fr.cnumr.java.checks;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
-import org.sonar.plugins.java.api.semantic.Symbol.MethodSymbol;
-import org.sonar.plugins.java.api.semantic.Type;
-import org.sonar.plugins.java.api.tree.AssignmentExpressionTree;
-import org.sonar.plugins.java.api.tree.MethodTree;
 import org.sonar.plugins.java.api.tree.Tree;
 import org.sonar.plugins.java.api.tree.Tree.Kind;
 import org.sonar.plugins.java.api.tree.UnaryExpressionTree;
@@ -15,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Rule(
-        key = "67",
+        key = "S67",
         name = "Developpement",
         description = "Remplacer les $i++ par ++$i",
         priority = Priority.MINOR,

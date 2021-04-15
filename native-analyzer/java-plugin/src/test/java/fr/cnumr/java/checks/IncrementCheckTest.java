@@ -8,7 +8,7 @@ class IncrementCheckTest {
     @Test
     void test() {
         JavaCheckVerifier.newVerifier()
-                .onFile("src/test/files/IncrementRule.java")
+                .onFile("src/test/files/IncrementCheck.java")
                 .withCheck(new IncrementCheck())
                 .verifyIssues();
     }
