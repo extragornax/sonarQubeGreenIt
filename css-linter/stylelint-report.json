@@ -1,0 +1,106 @@
+[{
+    "source": "/home/gael/IdeaProjects/css-linter/ressources/PromoteStandardPolicy.css",
+    "deprecations": [],
+    "invalidOptionWarnings": [],
+    "parseErrors": [],
+    "errored": true,
+    "warnings": [{
+            "line": 22,
+            "column": 12,
+            "rule": "testim-plugin/no-color-blue",
+            "severity": "error",
+            "text": "Expected \"blue\" to be \"#0000FF\" (testim-plugin/no-color-blue)"
+        },
+        {
+            "line": 2,
+            "column": 5,
+            "rule": "testim-plugin/standard-policy",
+            "severity": "error",
+            "text": "Expcted \"'quadranta'\" to be one of \"serif,sans-serif,monospace,cursive,fantasy,system-ui,emoji,math,fangsong,inherit,initial,unset\" (testim-plugin/standard-policy)"
+        },
+        {
+            "line": 9,
+            "column": 5,
+            "rule": "testim-plugin/standard-policy",
+            "severity": "error",
+            "text": "Expcted \"quadranta, sans-serif\" to be one of \"serif,sans-serif,monospace,cursive,fantasy,system-ui,emoji,math,fangsong,inherit,initial,unset\" (testim-plugin/standard-policy)"
+        },
+        {
+            "line": 14,
+            "column": 5,
+            "rule": "testim-plugin/standard-policy",
+            "severity": "error",
+            "text": "Expcted \"Times, \"Times New Roman\", Georgia, serif\" to be one of \"serif,sans-serif,monospace,cursive,fantasy,system-ui,emoji,math,fangsong,inherit,initial,unset\" (testim-plugin/standard-policy)"
+        },
+        {
+            "line": 23,
+            "column": 1,
+            "rule": "no-missing-end-of-source-newline",
+            "severity": "error",
+            "text": "Unexpected missing end-of-source newline (no-missing-end-of-source-newline)"
+        },
+        {
+            "line": 2,
+            "column": 5,
+            "rule": "indentation",
+            "severity": "error",
+            "text": "Expected indentation of 2 spaces (indentation)"
+        },
+        {
+            "line": 3,
+            "column": 5,
+            "rule": "indentation",
+            "severity": "error",
+            "text": "Expected indentation of 2 spaces (indentation)"
+        },
+        {
+            "line": 4,
+            "column": 5,
+            "rule": "indentation",
+            "severity": "error",
+            "text": "Expected indentation of 2 spaces (indentation)"
+        },
+        {
+            "line": 5,
+            "column": 5,
+            "rule": "indentation",
+            "severity": "error",
+            "text": "Expected indentation of 2 spaces (indentation)"
+        },
+        {
+            "line": 9,
+            "column": 5,
+            "rule": "indentation",
+            "severity": "error",
+            "text": "Expected indentation of 2 spaces (indentation)"
+        },
+        {
+            "line": 10,
+            "column": 5,
+            "rule": "indentation",
+            "severity": "error",
+            "text": "Expected indentation of 2 spaces (indentation)"
+        },
+        {
+            "line": 14,
+            "column": 5,
+            "rule": "indentation",
+            "severity": "error",
+            "text": "Expected indentation of 2 spaces (indentation)"
+        },
+        {
+            "line": 18,
+            "column": 5,
+            "rule": "indentation",
+            "severity": "error",
+            "text": "Expected indentation of 2 spaces (indentation)"
+        },
+        {
+            "line": 22,
+            "column": 5,
+            "rule": "indentation",
+            "severity": "error",
+            "text": "Expected indentation of 2 spaces (indentation)"
+        }
+    ]
+}]

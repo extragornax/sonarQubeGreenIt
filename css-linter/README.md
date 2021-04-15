@@ -1,0 +1,1 @@
+stylelint ressources/*.css -f json > stylelint-report.json
