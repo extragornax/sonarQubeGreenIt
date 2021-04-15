@@ -21,17 +21,18 @@ var ruleTester = new RuleTester();
 ruleTester.run("s67", rule, {
 
     valid: [
-
-        // give me some code that won't trigger a warning
+        "++counter",
+        "counter + 73",
+        "counter += 73",
+        "counter =+ 73",
+        "73 + counter"
     ],
 
-    invalid: [
-        {
-            code: "counter++;",
-            errors: [{
-                message: "Fill me in.",
-                type: "Me too"
-            }]
-        }
-    ]
+    invalid: [{
+        code: "counter++;",
+        errors: [{
+            message: "Remplacer les $i++ par ++$i.",
+            type: "UpdateExpression"
+        }]
+    }]
 });
