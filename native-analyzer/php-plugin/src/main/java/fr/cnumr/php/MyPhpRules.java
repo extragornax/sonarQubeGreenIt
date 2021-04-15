@@ -26,25 +26,31 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import fr.cnumr.php.checks.IncrementCheck;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 import org.sonar.plugins.php.api.visitors.PHPCustomRuleRepository;
+import org.sonarsource.analyzer.commons.RuleMetadataLoader;
 
 /**
  * Extension point to define a PHP rule repository.
  */
 public class MyPhpRules implements RulesDefinition, PHPCustomRuleRepository {
 
+  public static final String LANGUAGE = "php";
+  public static final String NAME = "MyCompany Custom Repository";
+  public static final String RESOURCE_BASE_PATH = "fr/cnumr/l10n/php/rules/custom";
+  public static final String REPOSITORY_KEY = "cnumr-php";
+  private static final Set<String> RULE_TEMPLATES_KEY = Collections.emptySet();
+
   /**
    * Provide the repository key
    */
   @Override
   public String repositoryKey() {
-    return "custom";
+    return REPOSITORY_KEY;
   }
 
   /**
@@ -58,39 +64,22 @@ public class MyPhpRules implements RulesDefinition, PHPCustomRuleRepository {
 
   @Override
   public void define(Context context) {
-    NewRepository repository = context.createRepository(repositoryKey(), "php").setName("MyCompany Custom Repository");
 
-    // Load rule meta data from annotations
-    RulesDefinitionAnnotationLoader annotationLoader = new RulesDefinitionAnnotationLoader();
-    checkClasses().forEach(ruleClass -> annotationLoader.load(repository, ruleClass));
 
-    // Optionally override html description from annotation with content from html files
-    repository.rules().forEach(rule -> rule.setHtmlDescription(loadResource("/fr/cnumr/l10n/php/rules/custom/" + rule.key() + ".html")));
+    NewRepository repository = context.createRepository(REPOSITORY_KEY, LANGUAGE).setName(NAME);
 
-    // Optionally define remediation costs
-    Map<String, String> remediationCosts = new HashMap<>();
-    remediationCosts.put(IncrementCheck.KEY, "5min");
+    RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH);
 
-    repository.rules().forEach(rule -> rule.setDebtRemediationFunction(
-      rule.debtRemediationFunctions().constantPerIssue(remediationCosts.get(rule.key()))));
+    ruleMetadataLoader.addRulesByAnnotatedClass(repository, new ArrayList<>(checkClasses()));
+
+    setTemplates(repository);
 
     repository.done();
   }
 
-  private String loadResource(String path) {
-    URL resource = getClass().getResource(path);
-    if (resource == null) {
-      throw new IllegalStateException("Resource not found: " + path);
-    }
-    ByteArrayOutputStream result = new ByteArrayOutputStream();
-    try (InputStream in = resource.openStream()) {
-      byte[] buffer = new byte[1024];
-      for (int len = in.read(buffer); len != -1; len = in.read(buffer)) {
-        result.write(buffer, 0, len);
-      }
-      return new String(result.toByteArray(), StandardCharsets.UTF_8);
-    } catch (IOException e) {
-      throw new IllegalStateException("Failed to read resource: " + path, e);
-    }
-  }
-}
+  private static void setTemplates(NewRepository repository) {
+    RULE_TEMPLATES_KEY.stream()
+            .map(repository::rule)
+            .filter(Objects::nonNull)
+            .forEach(rule -> rule.setTemplate(true));
+  }}
