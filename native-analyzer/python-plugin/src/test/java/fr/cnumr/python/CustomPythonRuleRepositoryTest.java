@@ -31,7 +31,7 @@ public class CustomPythonRuleRepositoryTest {
     CustomPythonRuleRepository customPythonRuleRepository = new CustomPythonRuleRepository();
     RulesDefinition.Context context = new RulesDefinition.Context();
     customPythonRuleRepository.define(context);
-    assertThat(customPythonRuleRepository.repositoryKey()).isEqualTo("python-custom-rules");
+    assertThat(customPythonRuleRepository.repositoryKey()).isEqualTo(CustomPythonRuleRepository.REPOSITORY_KEY);
     assertThat(context.repositories()).hasSize(1).extracting("key").containsExactly(customPythonRuleRepository.repositoryKey());
     assertThat(context.repositories().get(0).rules()).hasSize(2);
     assertThat(customPythonRuleRepository.checkClasses()).hasSize(2);

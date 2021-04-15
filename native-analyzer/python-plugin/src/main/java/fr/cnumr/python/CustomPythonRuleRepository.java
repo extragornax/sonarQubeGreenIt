@@ -19,63 +19,48 @@
  */
 package fr.cnumr.python;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import fr.cnumr.python.checks.CustomPythonSubscriptionCheck;
 import fr.cnumr.python.checks.CustomPythonVisitorCheck;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 import org.sonar.plugins.python.api.PythonCustomRuleRepository;
+import org.sonarsource.analyzer.commons.RuleMetadataLoader;
+
+import java.util.*;
 
 public class CustomPythonRuleRepository implements RulesDefinition, PythonCustomRuleRepository {
+    public static final String LANGUAGE = "py";
+    public static final String NAME = "MyCompany Custom Repository";
+    public static final String RESOURCE_BASE_PATH = "fr/cnumr/l10n/python/rules/python/";
+    public static final String REPOSITORY_KEY = "cnumr-python";
+    private static final Set<String> RULE_TEMPLATES_KEY = Collections.emptySet();
 
-  @Override
-  public void define(Context context) {
-    NewRepository repository = context.createRepository(repositoryKey(), "py").setName("My custom repo");
-    new RulesDefinitionAnnotationLoader().load(repository, checkClasses().toArray(new Class[] {}));
-    Map<String, String> remediationCosts = new HashMap<>();
-    remediationCosts.put(CustomPythonVisitorCheck.RULE_KEY, "5min");
-    remediationCosts.put(CustomPythonSubscriptionCheck.RULE_KEY, "10min");
-    repository.rules().forEach(rule -> rule.setDebtRemediationFunction(
-      rule.debtRemediationFunctions().constantPerIssue(remediationCosts.get(rule.key()))));
+    @Override
+    public void define(Context context) {
+        NewRepository repository = context.createRepository(REPOSITORY_KEY, LANGUAGE).setName(NAME);
 
-    // Optionally override html description from annotation with content from html files
-    repository.rules().forEach(rule -> rule.setHtmlDescription(loadResource("/fr/cnumr/l10n/python/rules/python/" + rule.key() + ".html")));
-    repository.done();
-  }
+        RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH);
 
-  @Override
-  public String repositoryKey() {
-    return "python-custom-rules";
-  }
+        ruleMetadataLoader.addRulesByAnnotatedClass(repository, new ArrayList<>(checkClasses()));
 
-  @Override
-  public List<Class> checkClasses() {
-    return Arrays.asList(CustomPythonVisitorCheck.class, CustomPythonSubscriptionCheck.class);
-  }
+        setTemplates(repository);
 
-  private String loadResource(String path) {
-    URL resource = getClass().getResource(path);
-    if (resource == null) {
-      throw new IllegalStateException("Resource not found: " + path);
+        repository.done();
     }
-    ByteArrayOutputStream result = new ByteArrayOutputStream();
-    try (InputStream in = resource.openStream()) {
-      byte[] buffer = new byte[1024];
-      for (int len = in.read(buffer); len != -1; len = in.read(buffer)) {
-        result.write(buffer, 0, len);
-      }
-      return new String(result.toByteArray(), StandardCharsets.UTF_8);
-    } catch (IOException e) {
-      throw new IllegalStateException("Failed to read resource: " + path, e);
+
+    @Override
+    public String repositoryKey() {
+        return REPOSITORY_KEY;
     }
-  }
+
+    @Override
+    public List<Class> checkClasses() {
+        return Arrays.asList(CustomPythonVisitorCheck.class, CustomPythonSubscriptionCheck.class);
+    }
+
+    private static void setTemplates(NewRepository repository) {
+        RULE_TEMPLATES_KEY.stream()
+                .map(repository::rule)
+                .filter(Objects::nonNull)
+                .forEach(rule -> rule.setTemplate(true));
+    }
 }

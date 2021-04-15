@@ -64,8 +64,6 @@ public class MyPhpRules implements RulesDefinition, PHPCustomRuleRepository {
 
   @Override
   public void define(Context context) {
-
-
     NewRepository repository = context.createRepository(REPOSITORY_KEY, LANGUAGE).setName(NAME);
 
     RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(RESOURCE_BASE_PATH);
