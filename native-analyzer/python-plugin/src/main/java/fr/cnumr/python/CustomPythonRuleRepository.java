@@ -19,8 +19,7 @@
  */
 package fr.cnumr.python;
 
-import fr.cnumr.python.checks.CustomPythonSubscriptionCheck;
-import fr.cnumr.python.checks.CustomPythonVisitorCheck;
+import fr.cnumr.python.checks.NoFunctionCallWhenDeclaringForLoop;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.plugins.python.api.PythonCustomRuleRepository;
 import org.sonarsource.analyzer.commons.RuleMetadataLoader;
@@ -54,7 +53,7 @@ public class CustomPythonRuleRepository implements RulesDefinition, PythonCustom
 
     @Override
     public List<Class> checkClasses() {
-        return Arrays.asList(CustomPythonVisitorCheck.class, CustomPythonSubscriptionCheck.class);
+        return Arrays.asList(NoFunctionCallWhenDeclaringForLoop.class);
     }
 
     private static void setTemplates(NewRepository repository) {
