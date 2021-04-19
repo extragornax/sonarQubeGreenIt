@@ -1,12 +1,10 @@
 {
     "extends": "stylelint-config-standard",
     "plugins": [
-        "./rules/no-color-blue.js",
         "./rules/standard-policy.js",
         "stylelint-group-selectors"
     ],
     "rules": {
-        "testim-plugin/no-color-blue": true,
         "testim-plugin/standard-policy": true,
         "plugin/stylelint-group-selectors": true
     }
