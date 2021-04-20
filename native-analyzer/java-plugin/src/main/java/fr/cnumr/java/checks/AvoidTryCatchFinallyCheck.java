@@ -24,8 +24,7 @@ public class AvoidTryCatchFinallyCheck extends IssuableSubscriptionVisitor {
     @Override
     public void visitNode(Tree tree) {
         TryStatementTree tryStatementTree = (TryStatementTree) tree;
-        if (tryStatementTree.finallyBlock() != null && tryStatementTree.catches() != null) {
             reportIssue(tree, "Eviter d'utiliser try-catch-finally");
-        }
+
     }
 }
