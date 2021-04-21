@@ -28,6 +28,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import fr.cnumr.php.checks.AvoidDoubleQuoteCheck;
 import fr.cnumr.php.checks.AvoidTryCatchFinallyCheck;
 import fr.cnumr.php.checks.IncrementCheck;
 import org.sonar.api.server.rule.RulesDefinition;
@@ -60,7 +61,7 @@ public class MyPhpRules implements RulesDefinition, PHPCustomRuleRepository {
    */
   @Override
   public ImmutableList<Class> checkClasses() {
-    return ImmutableList.of(IncrementCheck.class, AvoidTryCatchFinallyCheck.class);
+    return ImmutableList.of(IncrementCheck.class, AvoidTryCatchFinallyCheck.class, AvoidDoubleQuoteCheck.class);
   }
 
   @Override
