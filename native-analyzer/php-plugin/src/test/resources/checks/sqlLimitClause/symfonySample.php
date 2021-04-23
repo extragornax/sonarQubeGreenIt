@@ -16,7 +16,7 @@ class UseSqlLimitClause extends \Doctrine\ORM\EntityRepository
      */
     public function getCompanyForUser($userId)
     {
-        $query =  $this->createQueryBuilder('c')
+        $query =  $this->createQueryBuilder('c') // NOK
             ->select('c')
             ->andWhere('c.user = :userId AND  c.returnedDate IS NULL')
             ->setParameter('userId', $userId);

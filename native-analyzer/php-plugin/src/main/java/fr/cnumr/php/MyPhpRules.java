@@ -31,6 +31,7 @@ import java.util.*;
 import fr.cnumr.php.checks.AvoidDoubleQuoteCheck;
 import fr.cnumr.php.checks.AvoidTryCatchFinallyCheck;
 import fr.cnumr.php.checks.IncrementCheck;
+import fr.cnumr.php.checks.UseSqlLimitClauseCheck;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionAnnotationLoader;
 import org.sonar.plugins.php.api.visitors.PHPCustomRuleRepository;
@@ -61,7 +62,7 @@ public class MyPhpRules implements RulesDefinition, PHPCustomRuleRepository {
    */
   @Override
   public ImmutableList<Class> checkClasses() {
-    return ImmutableList.of(IncrementCheck.class, AvoidTryCatchFinallyCheck.class, AvoidDoubleQuoteCheck.class);
+    return ImmutableList.of(IncrementCheck.class, AvoidTryCatchFinallyCheck.class, AvoidDoubleQuoteCheck.class, UseSqlLimitClauseCheck.class);
   }
 
   @Override

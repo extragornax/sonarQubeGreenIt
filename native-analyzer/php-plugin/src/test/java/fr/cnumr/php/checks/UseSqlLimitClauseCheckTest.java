@@ -10,7 +10,12 @@ public class UseSqlLimitClauseCheckTest {
 
 
     @Test
-    public void test() throws Exception {
+    public void testSymfony() throws Exception {
         PHPCheckTest.check(new UseSqlLimitClauseCheck(), new PhpTestFile(new File("src/test/resources/checks/sqlLimitClause/symfonySample.php")));
+    }
+
+    @Test
+    public void testLaravel() throws Exception {
+        PHPCheckTest.check(new UseSqlLimitClauseCheck(), new PhpTestFile(new File("src/test/resources/checks/sqlLimitClause/laravelSample.php")));
     }
 }

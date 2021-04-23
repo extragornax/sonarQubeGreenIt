@@ -1,0 +1,43 @@
+<p>Limiter le nombre de résultats (clause LIMIT)</p>
+<h2>Noncompliant Code Example- Symfony</h2>
+<pre>
+        $query =  $this->createQueryBuilder('c') // NOK
+            ->select('c')
+            ->andWhere('c.user = :userId AND  c.returnedDate IS NULL')
+            ->setParameter('userId', $userId);
+
+        return $query->getQuery()->getResult();
+</pre>
+<h2>Compliant Solution - Symfony </h2>
+<pre>
+        $query =  $this->createQueryBuilder('c')
+            ->select('c')
+            ->andWhere('c.user = :userId AND  c.returnedDate IS NULL')
+            ->setParameter('userId', $userId)
+            ->setMaxResults(10);
+
+        return $query->getQuery()->getResult();
+}</pre>
+
+<h2>Noncompliant Solution - Laravel</h2>
+<pre>
+    public function listUserByVoteAndAge()
+    {
+    $users = DB::table('users')
+                ->where('votes', '=', $votes)
+                ->where('age', '>', $age)
+                ->get();
+
+    return $users;
+    }
+}</pre>
+
+<h2>Compliant Solution - Laravel</h2>
+<pre>
+    $top_articles = DB::table('an_pages')
+                    ->where('status',1)
+                    ->limit(30)
+                    ->offset(0)
+                    ->orderBy('id', 'DESC')
+                    ->get();
+}</pre>

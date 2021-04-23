@@ -7,7 +7,9 @@ import org.sonar.plugins.php.api.tree.expression.FunctionCallTree;
 import org.sonar.plugins.php.api.tree.expression.MemberAccessTree;
 import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Rule(
@@ -20,17 +22,30 @@ public class UseSqlLimitClauseCheck extends PHPVisitorCheck {
 
     public static final String SQL_LIMIT_SYMFONY = "setMaxResults";
     public static final String SYMFONY_QUERY = "createQueryBuilder";
+    public static final List<String> LARAVEL_QUERY = Arrays.asList("table", "select");
+    public static final List<String> SQL_LIMIT_LARAVEL = Arrays.asList("take", "limit");
 
 
-    public static final String KEY = "S69";
+    public static final String KEY = "S75";
     public static final String DESCRIPTION = "Limiter le nombre de résultats (clause LIMIT)";
 
-    private static final Map<String, Map<Integer, CustomMap>> myMap = new HashMap<>();
+    private static final Map<String, MultiStepFunctionCallInfo> queryByFileAndLine = new HashMap<>();
 
-    private static class CustomMap {
+    // DOUBLE KEY NEEDED
+    // filename : line
+    private static class MultiStepFunctionCallInfo {
+        private Integer start;
         private Integer end;
         private boolean isQuery;
         private boolean useLimit;
+
+        public Integer getStart() {
+            return start;
+        }
+
+        public void setStart(Integer start) {
+            this.start = start;
+        }
 
         public Integer getEnd() {
             return end;
@@ -59,18 +74,17 @@ public class UseSqlLimitClauseCheck extends PHPVisitorCheck {
 
     @Override
     public void visitFunctionCall(FunctionCallTree tree) {
-        Integer start = ((FunctionCallTreeImpl) tree).getFirstToken().column();
-        Integer end = ((FunctionCallTreeImpl) tree).getLastToken().column();
+        Integer start = ((FunctionCallTreeImpl) tree).getFirstToken().line();
+        Integer end = ((FunctionCallTreeImpl) tree).getLastToken().line();
         final String filename = context().getPhpFile().toString();
-
+        final String KEY = String.format("%s:%s", filename, start);
         // ajout a  la map pour une nouvelle function
         // On chck si il y a pas d'entre pour le fichier puis pour la ligne du fichier
-        if (this.myMap.get(filename) == null || this.myMap.get(filename).get(start) == null) {
-            CustomMap customMap = new CustomMap();
-            customMap.setEnd(end);
-            Map<Integer, CustomMap> map = new HashMap<Integer, CustomMap>();
-            map.put(start, customMap);
-            this.myMap.put(filename, map);
+        if (this.queryByFileAndLine.get(KEY) == null || this.queryByFileAndLine.get(KEY).getEnd() < end) {
+            MultiStepFunctionCallInfo multiStepFunctionCallInfo = new MultiStepFunctionCallInfo();
+            multiStepFunctionCallInfo.setStart(start);
+            multiStepFunctionCallInfo.setEnd(end);
+            this.queryByFileAndLine.put(KEY, multiStepFunctionCallInfo);
         }
 
         // Recall de la function ppour split les differntes appel de functions enchainné
@@ -79,16 +93,16 @@ public class UseSqlLimitClauseCheck extends PHPVisitorCheck {
         MemberAccessTree memberAccessTree = (MemberAccessTree) tree.callee();
 
 
-        if (memberAccessTree.member().toString().equals(SYMFONY_QUERY)) {
-            this.myMap.get(filename).get(start).setQuery(true);
+        if (memberAccessTree.member().toString().equals(SYMFONY_QUERY) || LARAVEL_QUERY.contains(memberAccessTree.member().toString())) {
+            this.queryByFileAndLine.get(KEY).setQuery(true);
         }
 
-        if (memberAccessTree.member().toString().equals(SQL_LIMIT_SYMFONY)) {
-            this.myMap.get(filename).get(start).setUseLimit(true);
+        if (memberAccessTree.member().toString().equals(SQL_LIMIT_SYMFONY) || SQL_LIMIT_LARAVEL.contains(memberAccessTree.member().toString())) {
+            this.queryByFileAndLine.get(KEY).setUseLimit(true);
         }
 
-        if (this.myMap.get(filename).get(start).getEnd() == end) {
-            if (this.myMap.get(filename).get(start).isQuery && !this.myMap.get(filename).get(start).useLimit) {
+        if (this.queryByFileAndLine.get(KEY) != null && this.queryByFileAndLine.get(KEY) != null && this.queryByFileAndLine.get(KEY).getEnd() == end) {
+            if (this.queryByFileAndLine.get(KEY).isQuery && !this.queryByFileAndLine.get(KEY).useLimit) {
                 context().newIssue(this, memberAccessTree, DESCRIPTION);
             }
         }
