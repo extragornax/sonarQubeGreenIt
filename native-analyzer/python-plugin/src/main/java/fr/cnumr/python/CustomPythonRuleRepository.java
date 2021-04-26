@@ -19,12 +19,12 @@
  */
 package fr.cnumr.python;
 
+
 import fr.cnumr.python.checks.AvoidDoubleQuoteCheck;
 import fr.cnumr.python.checks.AvoidTryCatchFinallyCheck;
 import fr.cnumr.python.checks.NoFunctionCallWhenDeclaringForLoop;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.plugins.python.api.PythonCustomRuleRepository;
-import org.sonar.plugins.python.api.SubscriptionCheck;
 import org.sonarsource.analyzer.commons.RuleMetadataLoader;
 
 import java.util.*;
@@ -32,7 +32,7 @@ import java.util.*;
 public class CustomPythonRuleRepository implements RulesDefinition, PythonCustomRuleRepository {
     public static final String LANGUAGE = "py";
     public static final String NAME = "MyCompany Custom Repository";
-    public static final String RESOURCE_BASE_PATH = "fr/cnumr/l10n/python/rules/python/";
+    public static final String RESOURCE_BASE_PATH = "fr/cnumr/l10n/python/rules/python";
     public static final String REPOSITORY_KEY = "cnumr-python";
     private static final Set<String> RULE_TEMPLATES_KEY = Collections.emptySet();
 
@@ -65,4 +65,5 @@ public class CustomPythonRuleRepository implements RulesDefinition, PythonCustom
                 .filter(Objects::nonNull)
                 .forEach(rule -> rule.setTemplate(true));
     }
+
 }
