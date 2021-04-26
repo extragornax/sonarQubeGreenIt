@@ -3,6 +3,7 @@ package fr.cnumr.php.checks;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.php.tree.impl.expression.FunctionCallTreeImpl;
+import org.sonar.plugins.php.api.tree.Tree;
 import org.sonar.plugins.php.api.tree.expression.FunctionCallTree;
 import org.sonar.plugins.php.api.tree.expression.MemberAccessTree;
 import org.sonar.plugins.php.api.visitors.PHPVisitorCheck;
@@ -90,22 +91,26 @@ public class UseSqlLimitClauseCheck extends PHPVisitorCheck {
         // Recall de la function ppour split les differntes appel de functions enchainné
         super.visitFunctionCall(tree);
 
-        MemberAccessTree memberAccessTree = (MemberAccessTree) tree.callee();
+        if (tree.callee().is(Tree.Kind.OBJECT_MEMBER_ACCESS, Tree.Kind.CLASS_MEMBER_ACCESS)) {
+            MemberAccessTree memberAccessTree = (MemberAccessTree) tree.callee();
 
 
-        if (memberAccessTree.member().toString().equals(SYMFONY_QUERY) || LARAVEL_QUERY.contains(memberAccessTree.member().toString())) {
-            this.queryByFileAndLine.get(KEY).setQuery(true);
-        }
-
-        if (memberAccessTree.member().toString().equals(SQL_LIMIT_SYMFONY) || SQL_LIMIT_LARAVEL.contains(memberAccessTree.member().toString())) {
-            this.queryByFileAndLine.get(KEY).setUseLimit(true);
-        }
-
-        if (this.queryByFileAndLine.get(KEY) != null && this.queryByFileAndLine.get(KEY) != null && this.queryByFileAndLine.get(KEY).getEnd() == end) {
-            if (this.queryByFileAndLine.get(KEY).isQuery && !this.queryByFileAndLine.get(KEY).useLimit) {
-                context().newIssue(this, memberAccessTree, DESCRIPTION);
+            if (memberAccessTree.member().toString().equals(SYMFONY_QUERY) || LARAVEL_QUERY.contains(memberAccessTree.member().toString())) {
+                this.queryByFileAndLine.get(KEY).setQuery(true);
             }
+
+            if (memberAccessTree.member().toString().equals(SQL_LIMIT_SYMFONY) || SQL_LIMIT_LARAVEL.contains(memberAccessTree.member().toString())) {
+                this.queryByFileAndLine.get(KEY).setUseLimit(true);
+            }
+
+            if (this.queryByFileAndLine.get(KEY) != null && this.queryByFileAndLine.get(KEY) != null && this.queryByFileAndLine.get(KEY).getEnd() == end) {
+                if (this.queryByFileAndLine.get(KEY).isQuery && !this.queryByFileAndLine.get(KEY).useLimit) {
+                    context().newIssue(this, memberAccessTree, DESCRIPTION);
+                }
+            }
+
         }
+
 
     }
 
