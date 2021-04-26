@@ -12,4 +12,11 @@ public class UseSqlLimitClauseCheckTest {
                 .verifyIssues();
     }
 
+    @Test
+    void testNative() {
+        JavaCheckVerifier.newVerifier()
+                .onFile("src/test/files/sqlLimitClause/Native.java")
+                .withCheck(new UseSqlLimitClauseCheck())
+                .verifyIssues();
+    }
 }
