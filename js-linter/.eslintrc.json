@@ -9,6 +9,6 @@
         "sourceType": "module"
     },
     "rules": {
-        "quotes": "simple"
+        "quotes": ["warn", "single"]
     }
 }
