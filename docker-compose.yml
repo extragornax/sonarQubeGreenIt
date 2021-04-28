@@ -9,11 +9,10 @@ services:
     depends_on:
       - db
     environment:
-      - sonar.css.stylelint.reportPaths=/opt/reports/stylelint-report.json
-      - sonar.eslint.reportPaths=/opt/reports/eslint-report.json
-      - sonar.jdbc.username=sonar
-      - sonar.jdbc.password=sonar
-      - sonar.jdbc.url=jdbc:postgresql://db:5432/sonarqube
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonarqube
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: 'true'
     volumes:
       - type: bind
         source: ./native-analyzer/java-plugin/target/java-plugin-1.0.0-SNAPSHOT.jar
@@ -61,7 +60,11 @@ services:
     environment:
       SONAR_HOST_URL: http://sonar:9000
       SONAR_LOGIN: 238adee074ab6857357ceb35cf3ede6f3c07d881
+      SONAR_PROJECT_BASE_DIR: /usr/src
     volumes:
+      - type: bind
+        source: ./sonar-project.properties
+        target: /usr/src/sonar-project.properties
       - "/home/gael/IdeaProjects/sonar-custom-plugin-example/scripts:/usr/src"
 
 networks:
