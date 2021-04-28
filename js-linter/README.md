@@ -2,6 +2,70 @@
 
 description to b completed
 
+## Prerequis 
+- Node >= 10
+
+## Getting started
+
+Installer les dépendances du project :
+
+`npm i`
+
+Installer yoman
+
+`npm install --global yo`
+
+Installer le generateur eslint :
+
+`npm i -g generator-eslint`
+
+###Ajouter de nouvelles règles
+
+Pour ajouter une nouvelle règle utiliser le générateur eslint de yo :
+
+![img_3.png](img_3.png)
+
+Le génerateur va vous génerer 3 fichiers :
+
+- Un fichier de documentation
+- Un fichier pour votre règle 
+- Un fichier test qui intégrera le cas de test
+
+Pour tester votre règle exécuter la commande suivante :
+
+`npm test`
+
+### Génerer et importer le rapport dans sonarqube 
+
+Considérons que vous vous trouvez dans le répertoire du projet. Exécuter la commande :
+
+`eslint  -c ./.eslintrc.json $PATH_DU_PROJET_CIBLE -f json > stylelint-report.json`
+
+## Architecture
+
+Voici un aperçu de l'architecture du projet :
+```
+
+js-linter        # Dossier racine du projet de linter JS
+|
++--docs           # Repertoire de la documentation
+|  |
+|  +--rules       # Repertoire contenant toutes les desctiptions des règles
++--lib            
+|  |
+|  +--rules      # Repertoire contenant l'enssemble des rules
+|  |
+|  +--index.js   # fichiers d'entrées du plugin qui importe toutes les règles
++--tests     # Répertoire de test
+|  |
+|  +--lib       
+|  |  |
+|  |  +--rules        # Répertoire contenant l'intégralité des tests du projet
+|
++--package.json  
+\--.eslintrc.json   # Fichier de configuration du plugin
+```
+
 ## Installation
 
 You'll first need to install [ESLint](http://eslint.org):
