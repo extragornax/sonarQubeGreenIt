@@ -26,9 +26,6 @@ services:
       - type: bind
         source: /home/gael/IdeaProjects/myCustomPlugin/js-linter/eslint-report.json
         target: /opt/reports/eslint-report.json
-      - type: bind
-        source: /home/gael/IdeaProjects/myCustomPlugin/css-linter/stylelint-report.json
-        target: /opt/reports/stylelint-report.json
       # - "conf:/opt/sonarqube/conf"
       - "extensions:/opt/sonarqube/extensions"
       - "logs:/opt/sonarqube/logs"
@@ -59,13 +56,19 @@ services:
       - sonarnet
     environment:
       SONAR_HOST_URL: http://sonar:9000
-      SONAR_LOGIN: 238adee074ab6857357ceb35cf3ede6f3c07d881
-      SONAR_PROJECT_BASE_DIR: /usr/src
+      SONAR_LOGIN: $TOKEN
+      SONAR_PROJECT_BASE_DIR: /opt/project
     volumes:
       - type: bind
         source: ./sonar-project.properties
-        target: /usr/src/sonar-project.properties
-      - "/home/gael/IdeaProjects/sonar-custom-plugin-example/scripts:/usr/src"
+        target: /opt/project/sonar-project.properties
+      - "/home/gael/IdeaProjects/sonar-custom-plugin-example/scripts:/opt/scripts"
+      - type: bind
+        source: /home/gael/IdeaProjects/myCustomPlugin/js-linter/eslint-report.json
+        target: /opt/project/eslint-report.json
+      - type: bind
+        source: /home/gael/IdeaProjects/myCustomPlugin/css-linter/stylelint-report.json
+        target: /opt/project/stylelint-report.json
 
 networks:
   sonarnet:
