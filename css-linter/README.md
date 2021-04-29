@@ -31,7 +31,7 @@ Considérons que vous vous trouvez dans le répertoire du projet. Exécuter la c
 
 Administration -> Configuration -> Language -> CSS
 
-![img.png](img.png)
+![img.png](../images/img_6.png)
 
 https://docs.sonarqube.org/latest/analysis/external-issues/
 ## Architecture

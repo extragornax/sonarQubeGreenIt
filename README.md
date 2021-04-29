@@ -5,6 +5,11 @@ Pour connaitre l'intégralité des règle d'eco-conception actuel visiter le lie
 
 ## Liens
 
+### Prerquis
+
+- Docker
+- Docker-compose 3.9
+
 ## Architecture du projet
 Voici un aperçu de l'architecture du projet :
 ```
@@ -26,18 +31,82 @@ sonarQubeGreenIt        # Dossier racine du projet (non versionner) contient l'e
 \--docker-compose.yml   # Docker compose file qui installe automatiquement les plugins natifs si ces derniers ont bien été générer cf // TODO
 ```
 
-Vous pouvez plus d'informations sur l'architecture des différents linters et plugins natifs dans leurs README respectifs.
+Vous pouvez plus trouver plus d'informations sur l'architecture des différents linters et plugins natifs dans leurs README respectifs.
 
 
 ## Docker compose 
-web_1  | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 
-sudo sysctl -w vm.max_map_count=262144
 
 
 /home/gael/IdeaProjects/sonar-scanner-cli-4.6.0.2311-linux/sonar-scanner-4.6.0.2311-linux/bin/sonar-scanner -X   -Dsonar.projectKey=sonar-custom-plugin-example   -Dsonar.sources=.   -Dsonar.host.url=http://localhost:9000   -Dsonar.login=238adee074ab6857357ceb35cf3ede6f3c07d881   -Dsonar.eslint.reportPaths=/home/gael/IdeaProjects/myCustomPlugin/js-linter/eslint-report.json
+### Initialisation
+Démarrer sonar `docker-compose up`
+
+Si vous rencontrez l'erreur suivante en démmarant :
+
+`web_1  | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]`
+
+Vous pouvez augmentez la taille mémoire virtuelle :
+
+`sudo sysctl -w vm.max_map_count=262144
+`
+
+Se connecter une première fois http://localhost:9000 avec les identifiants :
+`login: admin
+password: admin`
+
+Une fois connecter génerer un token d'authentification :
+
+My Account -> Security -> Generate Tokens
+![img.png](images/img.png)
+![img_1.png](images/img_1.png)
 
 
+
+Relancez vos services en renseignant le token :
+
+`TOKEN=MY_TOKEN docker-compose up`
+
+
+### Import des plugins
+
+#### Analyzer natifs
+
+Les analyzers natifs seront directement importés dans le sonarqube lors de build docker à condition que vous ayez bien effectué
+[l'installation](https://github.com/p2lvoizinDavidson/sonarQubeGreenIt/tree/sonarPracticePR/native-analyzer#installation)
+
+#### Linter
+
+Pour les linters il est nécessaire de générer un rapport qui sera ensuite interprété par l'analyzer sonar.
+Pour générer ce rapport réferencez vous au README des linters respectifs :
+
+- [CSS](https://github.com/p2lvoizinDavidson/sonarQubeGreenIt/tree/sonarPracticePR/css-linter#g%C3%A9nerer-et-importer-le-rapport-dans-sonarqube)
+- [JS](https://github.com/p2lvoizinDavidson/sonarQubeGreenIt/tree/sonarPracticePR/js-linter#g%C3%A9nerer-et-importer-le-rapport-dans-sonarqube)
+
+
+Attention le contenu des rapports fait référence aux fichiers qu'il a analysés.
+il est important que le path de l'analyse de votre linter corresponde au path du fichier sur le sonar.
+Pour ce faire par default placer votre projet à analyser dans un répertoire `/opt/project` et placer y aussi vos rapports d'analyses dans ce répertoire.
+
+Si vous souhaitez utiliser un autre repertoire libre à vous de modifier le docker compose.
+
+### Profile
+
+Quality Profiles -> Create
+Remplissez les informations suivantes, le mieux est de repartir de Sonar et d'y activer les règles d'eco-conception :
+
+![img_2.png](images/img_2.png)
+
+Une fois le profile créé activer les règles d'eco-conception
+
+![img_3.png](images/img_3.png)
+
+
+Une fois le profil complet réferencé le comme le profil par defaut du langage.
+
+![img_4.png](images/img_4.png)
+
+Desormais votre environement sonarqube est configuré !
 ## Comment contribuer
 
 ## Auteur

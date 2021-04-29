@@ -23,7 +23,7 @@ Installer le generateur eslint :
 
 Pour ajouter une nouvelle règle utiliser le générateur eslint de yo :
 
-![img_3.png](img_3.png)
+![img_3.png](../images/img_5.png)
 
 Le génerateur va vous génerer 3 fichiers :
 
@@ -39,7 +39,7 @@ Pour tester votre règle exécuter la commande suivante :
 
 Considérons que vous vous trouvez dans le répertoire du projet. Exécuter la commande :
 
-`eslint  -c ./.eslintrc.json $PATH_DU_PROJET_CIBLE -f json > stylelint-report.json`
+`eslint  -c ./.eslintrc.json $PATH_DU_PROJET_CIBLE -f json > eslint-report.json`
 
 ## Architecture
 

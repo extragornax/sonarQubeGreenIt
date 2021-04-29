@@ -1,7 +1,7 @@
 ## Prérequis
 
 - Java >= 8
-- Mvn
+- Mvn 3
 
 ## Installation
 Installer les dépendances maven depuis la racine du project :
