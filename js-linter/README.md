@@ -1,9 +1,14 @@
 # eslint-plugin-green-it
 
-description to b completed
+Linter JS du plugin sonar green IT. Linter basé sur eslint.
 
 ## Prerequis 
 - Node >= 10
+
+## Liens
+
+- https://eslint.org/docs/user-guide/getting-started
+- https://eslint.org/docs/developer-guide/working-with-rules
 
 ## Getting started
 
@@ -19,7 +24,7 @@ Installer le generateur eslint :
 
 `npm i -g generator-eslint`
 
-###Ajouter de nouvelles règles
+### Ajouter de nouvelles règles
 
 Pour ajouter une nouvelle règle utiliser le générateur eslint de yo :
 

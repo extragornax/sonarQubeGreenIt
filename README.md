@@ -1,9 +1,15 @@
 ## Plugin SonarQube d'éco-conception
 
 Les bonnes pratiques présentes dans le plugin sont celles de la 2ème édition du référentiel paru en septembre 2015. 
-Pour connaitre l'intégralité des règle d'eco-conception actuel visiter le lien -> https://docs.google.com/spreadsheets/d/1nujR4EnajnR0NSXjvBW3GytOopDyTfvl3eTk2XGLh5Y/edit#gid=1386834576
+Pour connaitre l'intégralité des règle d'eco-conception actuel visiter le [lien](https://docs.google.com/spreadsheets/d/1nujR4EnajnR0NSXjvBW3GytOopDyTfvl3eTk2XGLh5Y/edit#gid=1386834576)
 
+## Fonctionnement d'un plugin sonar 
+Un plugin sonar commence par parser vos fichiers en AST . L’AST vous permettra par la suite d’accéder directement à un ou plusieurs nœud de l’arbre que vous désirez.
+Par exemple il vous permettra  d’accéder à toutes les boucles for et d’explorer leurs déclaration, leurs block etc …
+L’AST diffère selon les langages même si une bonne partie reste très similaire. 
+Pour vous familiariser avec l’AST de votre langage et mieux comprendre comment la structure de votre fichier vous pouvez utilisez [AST explorer](https://astexplorer.net/)
 ## Liens
+ - https://docs.sonarqube.org/latest/analysis/overview/
 
 ### Prerquis
 
@@ -34,11 +40,8 @@ sonarQubeGreenIt        # Dossier racine du projet (non versionner) contient l'e
 Vous pouvez plus trouver plus d'informations sur l'architecture des différents linters et plugins natifs dans leurs README respectifs.
 
 
-## Docker compose 
+## Installation de l'environnement SonarQube de développmement 
 
-
-
-/home/gael/IdeaProjects/sonar-scanner-cli-4.6.0.2311-linux/sonar-scanner-4.6.0.2311-linux/bin/sonar-scanner -X   -Dsonar.projectKey=sonar-custom-plugin-example   -Dsonar.sources=.   -Dsonar.host.url=http://localhost:9000   -Dsonar.login=238adee074ab6857357ceb35cf3ede6f3c07d881   -Dsonar.eslint.reportPaths=/home/gael/IdeaProjects/myCustomPlugin/js-linter/eslint-report.json
 ### Initialisation
 Démarrer sonar `docker-compose up`
 
@@ -55,7 +58,7 @@ Se connecter une première fois http://localhost:9000 avec les identifiants :
 `login: admin
 password: admin`
 
-Une fois connecter génerer un token d'authentification :
+Une fois connecter générez un token d'authentification :
 
 My Account -> Security -> Generate Tokens
 ![img.png](images/img.png)
