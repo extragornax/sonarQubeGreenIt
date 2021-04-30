@@ -19,4 +19,13 @@ public class UseSqlLimitClauseCheckTest {
                 .withCheck(new UseSqlLimitClauseCheck())
                 .verifyIssues();
     }
+
+    @Test
+    void testCustomRepo() {
+        JavaCheckVerifier.newVerifier()
+                .onFile("src/test/files/sqlLimitClause/CustomRepo.java")
+                .withCheck(new UseSqlLimitClauseCheck())
+                .verifyIssues();
+    }
+
 }
