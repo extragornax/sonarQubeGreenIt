@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   sonar:
+    container_name: sonar
     image: sonarqube:latest
     ports:
       - "9000:9000"
@@ -24,7 +25,7 @@ services:
         source: ./native-analyzer/python-plugin/target/python-plugin-1.0.0-SNAPSHOT.jar
         target: /opt/sonarqube/extensions/plugins/python-plugin-1.0.0-SNAPSHOT.jar
       - type: bind
-        source: /home/gael/IdeaProjects/myCustomPlugin/js-linter/eslint-report.json
+        source: ./js-linter/eslint-report.json
         target: /opt/reports/eslint-report.json
       # - "conf:/opt/sonarqube/conf"
       - "extensions:/opt/sonarqube/extensions"
@@ -62,12 +63,12 @@ services:
       - type: bind
         source: ./sonar-project.properties
         target: /opt/project/sonar-project.properties
-      - "/home/gael/IdeaProjects/sonar-custom-plugin-example/scripts:/opt/scripts"
+      - "./sonar-custom-plugin-example/scripts:/opt/scripts"
       - type: bind
-        source: /home/gael/IdeaProjects/myCustomPlugin/js-linter/eslint-report.json
+        source: ./js-linter/eslint-report.json
         target: /opt/project/eslint-report.json
       - type: bind
-        source: /home/gael/IdeaProjects/myCustomPlugin/css-linter/stylelint-report.json
+        source: ./css-linter/stylelint-report.json
         target: /opt/project/stylelint-report.json
 
 networks:

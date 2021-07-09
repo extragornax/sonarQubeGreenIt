@@ -14,7 +14,9 @@
         "report": "eslint tests/lib/rules/* -f json > stylelint-report.json"
     },
     "dependencies": {
-        "requireindex": "~1.1.0"
+        "generator-eslint": "^2.0.0",
+        "requireindex": "~1.1.0",
+        "yo": "^4.2.0"
     },
     "devDependencies": {
         "eslint": "^7.1.0",
